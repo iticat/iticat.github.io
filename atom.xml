@@ -1,0 +1,2640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://iticat.github.io</id>
+    <title>Gridea</title>
+    <updated>2024-05-29T03:30:50.250Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://iticat.github.io"/>
+    <link rel="self" href="https://iticat.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://iticat.github.io/images/avatar.png</logo>
+    <icon>https://iticat.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2024, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[VUE]]></title>
+        <id>https://iticat.github.io/zhe-shi-yi-ge-biao-ti/</id>
+        <link href="https://iticat.github.io/zhe-shi-yi-ge-biao-ti/">
+        </link>
+        <updated>2024-05-29T03:19:33.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="vue">Vue</h1>
+<h2 id="71-入门">7.1 入门</h2>
+<h3 id="1-创建vue实例">1、 创建Vue实例</h3>
+<p><strong>核心步骤（4步）：</strong></p>
+<ol>
+<li>准备容器</li>
+<li>引包（官网） — 开发版本/生产版本</li>
+<li>创建Vue实例  new Vue()</li>
+<li>指定配置项，渲染数据</li>
+</ol>
+]]></summary>
+        <content type="html"><![CDATA[<h1 id="vue">Vue</h1>
+<h2 id="71-入门">7.1 入门</h2>
+<h3 id="1-创建vue实例">1、 创建Vue实例</h3>
+<p><strong>核心步骤（4步）：</strong></p>
+<ol>
+<li>准备容器</li>
+<li>引包（官网） — 开发版本/生产版本</li>
+<li>创建Vue实例  new Vue()</li>
+<li>指定配置项，渲染数据</li>
+</ol>
+<!-- more -->
+<ol>
+<li>el:指定挂载点</li>
+<li>data提供数据</li>
+</ol>
+<pre><code class="language-html">&lt;body&gt;
+
+    &lt;div id=&quot;app&quot;&gt;
+        {{ msg }}
+    &lt;/div&gt;
+
+    &lt;script src=&quot;./js/vue.js&quot;&gt; &lt;/script&gt;
+    &lt;script&gt;
+        const app = new Vue({
+            el:&quot;#app&quot;,
+            data: {
+                msg: &quot;Hello Vue!&quot;
+            }
+        })
+    &lt;/script&gt;
+    
+&lt;/body&gt;
+</code></pre>
+<h3 id="2-插值表达式">2、插值表达式 {{}}</h3>
+<p>插值表达式是一种Vue的模板语法</p>
+<p>我们可以用插值表达式渲染出Vue提供的数据</p>
+<h4 id="21-作用利用表达式进行插值渲染到页面中">2.1 作用：利用表达式进行插值，渲染到页面中</h4>
+<p>表达式：是可以被求值的代码，JS引擎会讲其计算出一个结果</p>
+<p>以下的情况都是表达式：</p>
+<pre><code class="language-js">money + 100
+money - 100
+money * 10
+money / 10 
+price &gt;= 100 ? '真贵':'还行'
+obj.name
+arr[0]
+fn()
+obj.fn()
+</code></pre>
+<h4 id="22-语法">2.2 语法</h4>
+<p>插值表达式语法：{{ 表达式 }}</p>
+<pre><code class="language-js">&lt;h3&gt;{{title}}&lt;h3&gt;
+
+&lt;p&gt;{{nickName.toUpperCase()}}&lt;/p&gt;
+
+&lt;p&gt;{{age &gt;= 18 ? '成年':'未成年'}}&lt;/p&gt;
+
+&lt;p&gt;{{obj.name}}&lt;/p&gt;
+
+&lt;p&gt;{{fn()}}&lt;/p&gt;
+</code></pre>
+<h4 id="23-错误用法">2.3 错误用法</h4>
+<pre><code class="language-js">1.在插值表达式中使用的数据 必须在data中进行了提供
+&lt;p&gt;{{hobby}}&lt;/p&gt;  //如果在data中不存在 则会报错
+
+2.支持的是表达式，而非语句，比如：if   for ...
+&lt;p&gt;{{if}}&lt;/p&gt;
+
+3.不能在标签属性中使用 {{  }} 插值 (插值表达式只能标签中间使用)
+&lt;p title=&quot;{{username}}&quot;&gt;我是P标签&lt;/p&gt;
+</code></pre>
+<h2 id="72-指令">7.2 指令</h2>
+<p><strong>概念：<strong>指令（Directives）是 Vue 提供的带有 <strong>v- 前缀</strong> 的 特殊 标签</strong>属性</strong>。</p>
+<p>vue 中的指令按照不同的用途可以分为如下 6 大类：</p>
+<ul>
+<li>内容渲染指令（v-html、v-text）</li>
+<li>条件渲染指令（v-show、v-if、v-else、v-else-if）</li>
+<li>事件绑定指令（v-on）</li>
+<li>属性绑定指令 （v-bind）</li>
+<li>双向绑定指令（v-model）</li>
+<li>列表渲染指令（v-for）</li>
+</ul>
+<h3 id="1-内容渲染指令">1、内容渲染指令</h3>
+<p>内容渲染指令用来辅助开发者渲染 DOM 元素的文本内容。常用的内容渲染指令有如下2 个：</p>
+<h4 id="v-text类似innertext">v-text（类似innerText）</h4>
+<ul>
+<li>使用语法：<code>&lt;p v-text=&quot;uname&quot;&gt;hello&lt;/p&gt;</code>，意思是将 uame 值渲染到 p 标签中</li>
+<li>类似 innerText，使用该语法，会覆盖 p 标签原有内容</li>
+</ul>
+<h4 id="v-html类似-innerhtml">v-html（类似 innerHTML）</h4>
+<ul>
+<li>使用语法：<code>&lt;p v-html=&quot;intro&quot;&gt;hello&lt;/p&gt;</code>，意思是将 intro 值渲染到 p 标签中</li>
+<li>类似 innerHTML，使用该语法，会覆盖 p 标签原有内容，能够解析HTML标签</li>
+</ul>
+<p>代码演示：</p>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;个人信息&lt;/h1&gt;
+    &lt;p v-text=&quot;uname&quot;&gt;&lt;/p&gt; 
+    &lt;p v-html=&quot;intro&quot;&gt;&lt;/p&gt;
+  &lt;/div&gt; 
+
+&lt;script&gt;
+        const app = new Vue({
+            el:'#app',
+            data:{
+                uname:'张三',
+                intro:'&lt;h2&gt;这是一个非常优秀的boy&lt;h2&gt;'
+            }
+        })
+&lt;/script&gt;
+</code></pre>
+<h3 id="2-条件渲染指令">2、条件渲染指令</h3>
+<p>条件判断指令，用来辅助开发者按需控制 DOM 的显示与隐藏。条件渲染指令有如下两个，分别是：</p>
+<h4 id="v-show">v-show</h4>
+<ol>
+<li>作用：  控制元素显示隐藏</li>
+<li>语法：  v-show = &quot;表达式&quot;   表达式值为 true 显示， false 隐藏</li>
+<li>原理：  切换 display:none 控制显示隐藏</li>
+<li>场景：频繁切换显示隐藏的场景</li>
+</ol>
+<h4 id="v-if">v-if</h4>
+<ol>
+<li>作用：  控制元素显示隐藏（条件渲染）</li>
+<li>语法：  v-if= &quot;表达式&quot;          表达式值 true显示， false 隐藏</li>
+<li>原理：  基于条件判断，是否创建 或 移除元素节点</li>
+<li>场景：  要么显示，要么隐藏，不频繁切换的场景</li>
+</ol>
+<p>示例代码：</p>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;div class=&quot;box&quot; v-show=&quot;flag&quot;&gt;我是v-show控制的盒子&lt;/div&gt;
+    &lt;div class=&quot;box&quot; v-if=&quot;flag&quot;&gt;我是v-if控制的盒子&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    const app = new Vue({
+        el: '#app',
+        data: {
+            flag: false
+        }
+    })
+&lt;/script&gt;
+</code></pre>
+<h4 id="v-else-和-v-else-if">v-else 和 v-else-if</h4>
+<ol>
+<li>作用：辅助v-if进行判断渲染</li>
+<li>语法：v-else  v-else-if=&quot;表达式&quot;</li>
+<li>需要紧接着v-if使用</li>
+</ol>
+<p>示例代码：</p>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;p v-if=&quot;gender === 1&quot;&gt;性别：♂ 男&lt;/p&gt;
+    &lt;p v-else&gt;性别：♀ 女&lt;/p&gt;
+    	&lt;hr&gt;
+    &lt;p v-if=&quot;score &gt; 90&quot;&gt;成绩评定A：奖励电脑一台&lt;/p&gt;
+    &lt;p v-else-if=&quot;score &gt; 80&quot;&gt;成绩评定B：奖励周末郊游&lt;/p&gt;
+    &lt;p v-else-if=&quot;score &gt; 70&quot;&gt;成绩评定C：奖励零食礼包&lt;/p&gt;
+    &lt;p v-else&gt;成绩评定D：惩罚一周不能玩手机&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            gender: 2,
+            score: 95
+        }
+    })
+&lt;/script&gt;
+</code></pre>
+<h3 id="3-事件绑定指令">3、事件绑定指令</h3>
+<p>使用DOM注册事件时，语法如下：</p>
+<ul>
+<li>&lt;button v-on:事件名=&quot;内联语句&quot;&gt;按钮</button></li>
+<li>&lt;button v-on:事件名=&quot;处理函数&quot;&gt;按钮</button></li>
+<li>&lt;button v-on:事件名=&quot;处理函数(实参)&quot;&gt;按钮</button></li>
+<li><code>v-on:</code> 简写为 <strong>@</strong></li>
+</ul>
+<h4 id="内联语句">内联语句</h4>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;button @click=&quot;count--&quot;&gt;-&lt;/button&gt;
+    &lt;span&gt;{{ count }}&lt;/span&gt;
+    &lt;button v-on:click=&quot;count++&quot;&gt;+&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    const app = new Vue({
+      el: '#app',
+      data: {
+        count: 100
+      }
+    })
+  &lt;/script&gt;
+</code></pre>
+<h4 id="事件处理函数">事件处理函数</h4>
+<p>注意：</p>
+<ul>
+<li>事件处理函数应该写到一个跟data同级的配置项（methods）中</li>
+<li>methods中的函数内部的this都指向Vue实例</li>
+</ul>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+        &lt;button @click=&quot;change&quot;&gt;切换显示隐藏&lt;/button&gt;
+        &lt;h1 v-show=&quot;isShow&quot;&gt;黑马程序员&lt;/h1&gt;
+&lt;/div&gt;
+      
+      &lt;script&gt;
+        const app = new Vue({
+          el: '#app',
+          data: {
+            isShow: true
+          },
+          methods: {
+            change() {
+                this.isShow =  !this.isShow;
+            }
+          }
+        })
+      &lt;/script&gt;
+
+</code></pre>
+<h4 id="给事件处理函数传参">给事件处理函数传参</h4>
+<ul>
+<li>
+<p>如果不传递任何参数，则方法无需加小括号；methods方法中可以直接使用 e 当做事件对象</p>
+</li>
+<li>
+<p>如果传递了参数，则实参 <code>$event</code> 表示事件对象，固定用法。</p>
+</li>
+</ul>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;div class=&quot;box&quot;&gt;
+        &lt;h3&gt;小黑自动售货机&lt;/h3&gt;
+        &lt;button @click = &quot;buy(5)&quot;&gt;可乐5元&lt;/button&gt;
+        &lt;button @click = &quot;buy(10)&quot;&gt;咖啡10元&lt;/button&gt;
+        &lt;button @click = &quot;buy(8)&quot;&gt;牛奶8元&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p&gt;银行卡余额：{{ money }}元&lt;/p&gt;
+&lt;/div&gt;
+    
+      &lt;script&gt;
+        const app = new Vue({
+          el: '#app',
+          data: {
+            money: 100
+          },
+          methods: {
+              buy(s){
+                  this.money = this.money - s;
+              }
+          }
+        })
+      &lt;/script&gt;
+</code></pre>
+<h3 id="4-属性绑定指令">4、属性绑定指令</h3>
+<ol>
+<li>**作用：**动态设置html的标签属性 比如：src、url、title</li>
+<li><strong>语法</strong>：**v-bind:**属性名=“表达式”</li>
+<li>**v-bind:**可以简写成&quot;  <strong>:</strong>   &quot;</li>
+</ol>
+<p>比如，有一个图片，它的 <code>src</code> 属性值，是一个图片地址。这个地址在数据 data 中存储。</p>
+<p>则可以这样设置属性值：</p>
+<ul>
+<li><code>&lt;img v-bind:src=&quot;url&quot; /&gt;</code></li>
+<li><code>&lt;img :src=&quot;url&quot; /&gt;</code>   （v-bind可以省略）</li>
+</ul>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;img v-bind:src=&quot;imgUrl&quot; v-bind:title=&quot;msg&quot; alt=&quot;&quot;&gt;
+    &lt;img :src=&quot;imgUrl&quot; :title=&quot;msg&quot; alt=&quot;&quot;&gt;
+&lt;/div&gt;
+
+      &lt;script&gt;
+        const app = new Vue({
+          el: '#app',
+          data: {
+            imgUrl: './img/11-00.gif',
+            msg: 'hello 波仔'
+          }
+        })
+      &lt;/script&gt;
+</code></pre>
+<h3 id="5-列表渲染指令">5、列表渲染指令</h3>
+<p>v-for 指令需要使用 <code>(item, index) in arr</code> 形式的特殊语法，其中：</p>
+<ul>
+<li>item 是数组中的每一项</li>
+<li>index 是每一项的索引，不需要可以省略</li>
+<li>arr 是被遍历的数组</li>
+</ul>
+<p>此语法也可以遍历<strong>对象和数字</strong></p>
+<pre><code class="language-js">//遍历对象
+&lt;div v-for=&quot;(value, key, index) in object&quot;&gt;{{value}}&lt;/div&gt;
+value:对象中的值
+key:对象中的键
+index:遍历索引从0开始
+
+//遍历数字
+&lt;p v-for=&quot;item in 10&quot;&gt;{{item}}&lt;/p&gt;
+item从1 开始
+</code></pre>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;ul&gt;
+        &lt;li v-for=&quot;item in booksList&quot; :key=&quot;item.id&quot;&gt;
+            {{item.name}} {{item.author}}
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+
+    &lt;script&gt;
+        const app = new Vue({
+            el: '#app',
+            data: {
+                booksList: [{
+                        id: 1,
+                        name: '《红楼梦》',
+                        author: '曹雪芹'
+                    },
+                    {
+                        id: 2,
+                        name: '《西游记》',
+                        author: '吴承恩'
+                    },
+                    {
+                        id: 3,
+                        name: '《水浒传》',
+                        author: '施耐庵'
+                    },
+                    {
+                        id: 4,
+                        name: '《三国演义》',
+                        author: '罗贯中'
+                    }
+                ]
+            }
+           
+        })
+    &lt;/script&gt;
+</code></pre>
+<h3 id="6-v-for中的key">6、 v-for中的key</h3>
+<p><strong>语法：</strong> key=&quot;唯一值&quot;</p>
+<p><strong>作用：<strong>给列表项添加的</strong>唯一标识</strong>。便于Vue进行列表项的<strong>正确排序复用</strong>。</p>
+<p>**为什么加key：**Vue 的默认行为会尝试原地修改元素（<strong>就地复用</strong>）</p>
+<p>实例代码：</p>
+<pre><code class="language-html">&lt;ul&gt;
+  &lt;li v-for=&quot;(item, index) in booksList&quot; :key=&quot;item.id&quot;&gt;
+    &lt;span&gt;{{ item.name }}&lt;/span&gt;
+    &lt;span&gt;{{ item.author }}&lt;/span&gt;
+    &lt;button @click=&quot;del(item.id)&quot;&gt;删除&lt;/button&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>注意：</p>
+<ol>
+<li>key 的值只能是字符串 或 数字类型</li>
+<li>key 的值必须具有唯一性</li>
+<li>推荐使用  id 作为 key（唯一），不推荐使用 index 作为 key（会变化，不对应）</li>
+</ol>
+<h3 id="7-双向绑定指令">7、 双向绑定指令</h3>
+<p>所谓双向绑定就是：</p>
+<ol>
+<li>数据改变后，呈现的页面结果会更新</li>
+<li>页面结果更新后，数据也会随之而变</li>
+</ol>
+<p><strong>作用：</strong> 给<strong>表单元素</strong>（input、radio、select）使用，双向绑定数据，可以快速 <strong>获取</strong> 或 <strong>设置</strong> 表单元素内容</p>
+<p>**语法：**v-model=&quot;变量&quot;</p>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+    账户：&lt;input v-model=&quot;username&quot; type=&quot;text&quot;&gt; &lt;br&gt;
+    密码：&lt;input v-model=&quot;password&quot; type=&quot;password&quot;&gt; &lt;br&gt;
+    &lt;button&gt;登录&lt;/button&gt;
+    &lt;button&gt;重置&lt;/button&gt;
+&lt;/div&gt;
+    &lt;script&gt;
+        const app = new Vue({
+            el: '#app',
+            data: {
+                username: '',
+                password: ''
+            }
+        })
+    &lt;/script&gt;
+</code></pre>
+<h3 id="8-指令修饰符">8、指令修饰符</h3>
+<p>​	所谓指令修饰符就是通过“.”指明一些指令<strong>后缀</strong> 不同的<strong>后缀</strong>封装了不同的处理操作  —&gt; 简化代码</p>
+<h4 id="81-按键修饰符">8.1 按键修饰符</h4>
+<ul>
+<li>@keyup.enter  —&gt;当点击enter键的时候才触发</li>
+</ul>
+<p>代码演示：</p>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;h3&gt;@keyup.enter → 监听键盘回车事件&lt;/h3&gt;
+    &lt;input @keyup.enter=&quot;add&quot; v-model=&quot;username&quot; type=&quot;text&quot;&gt;
+&lt;/div&gt;
+
+    &lt;script&gt;
+        const app = new Vue({
+            el: '#app',
+            data: {
+                username: ''
+            },
+            methods: {
+                add(){
+                    console.log(this.username);
+                }
+            }
+        })
+    &lt;/script&gt;
+</code></pre>
+<h4 id="82-v-model修饰符">8.2 v-model修饰符</h4>
+<ul>
+<li>v-model.trim  —&gt;去除首位空格</li>
+<li>v-model.number —&gt;转数字</li>
+</ul>
+<h4 id="83-事件修饰符">8.3 事件修饰符</h4>
+<ul>
+<li>@事件名.stop —&gt; 阻止冒泡</li>
+<li>@事件名.prevent  —&gt;阻止默认行为</li>
+<li>@事件名.stop.prevent —&gt;可以连用 即阻止事件冒泡也阻止默认行为</li>
+</ul>
+<pre><code class="language-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;h3&gt;v-model修饰符 .trim .number&lt;/h3&gt;
+    姓名：&lt;input v-model.trim=&quot;username&quot; type=&quot;text&quot;&gt;&lt;br&gt;
+    年纪：&lt;input v-model.number=&quot;age&quot; type=&quot;text&quot;&gt;&lt;br&gt;
+
+    &lt;h3&gt;@事件名.stop → 阻止冒泡&lt;/h3&gt;
+    &lt;div @click=&quot;fatherFn&quot; class=&quot;father&quot;&gt;
+        &lt;div @click.stop=&quot;sonFn&quot; class=&quot;son&quot;&gt;儿子&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;h3&gt;@事件名.prevent → 阻止默认行为&lt;/h3&gt;
+    &lt;a @click.prevent href=&quot;http://www.baidu.com&quot;&gt;阻止默认行为&lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+<h3 id="9-v-bind操作class">9、v-bind操作class</h3>
+<p>为了方便开发者进行样式控制， Vue 扩展了 v-bind 的语法，可以针对 <strong>class 类名</strong> 和 <strong>style 行内样式</strong> 进行控制 。</p>
+<h4 id="91-语法">9.1 语法：</h4>
+<pre><code class="language-html">&lt;div :class = &quot;对象/数组&quot;&gt;这是一个div&lt;/div&gt;
+</code></pre>
+<h4 id="92-对象语法">9.2 对象语法</h4>
+<p>当class动态绑定的是<strong>对象</strong>时，<strong>键就是类名，值就是布尔值</strong>，如果值是<strong>true</strong>，就有这个类，否则没有这个类</p>
+<pre><code class="language-html">&lt;div class=&quot;box&quot; :class=&quot;{ 类名1: 布尔值, 类名2: 布尔值 }&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>​    适用场景：一个类名，来回切换</p>
+<h4 id="93-数组语法">9.3 数组语法</h4>
+<p>当class动态绑定的是<strong>数组</strong>时 → 数组中所有的类，都会添加到盒子上，本质就是一个 class 列表</p>
+<pre><code class="language-html">&lt;div class=&quot;box&quot; :class=&quot;[ '类名1', '类名2', '类名3' ]&quot;&gt;&lt;/div&gt;
+</code></pre>
+<p>使用场景:批量添加或删除类</p>
+<h4 id="94-代码">9.4 代码</h4>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;style&gt;
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 3px solid #000;
+            font-size: 30px;
+            margin-top: 10px;
+        }
+
+        .pink {
+            background-color: pink;
+        }
+
+        .big {
+            width: 300px;
+            height: 300px;
+        }
+    &lt;/style&gt;
+
+
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;!--绑定对象--&gt;
+        &lt;div class=&quot;box&quot; :class=&quot;{pink:true}&quot;&gt;黑马程序员&lt;/div&gt;
+
+        &lt;!--绑定数组--&gt;
+        &lt;div class=&quot;box&quot; :class=&quot;['big']&quot;&gt;黑马程序员&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        const app = new Vue({
+            el: '#app',
+            data: {
+
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h4 id="95-tab栏">9.5 tab栏</h4>
+<pre><code class="language-html">&lt;style&gt;
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        display: flex;
+        border-bottom: 2px solid #e01222;
+        padding: 0 10px;
+    }
+
+    li {
+        width: 100px;
+        height: 50px;
+        line-height: 50px;
+        list-style: none;
+        text-align: center;
+    }
+
+    li a {
+        display: block;
+        text-decoration: none;
+        font-weight: bold;
+        color: #333333;
+    }
+
+    li a.active {
+        background-color: #e01222;
+        color: #fff;
+    }
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;ul&gt;
+            &lt;li v-for=&quot;(item,index) in list&quot; :key=&quot;item.id&quot; @click=&quot;activeIndex = index&quot;&gt;
+                &lt;a href=&quot;#&quot; :class={active:activeIndex===index}&gt;{{item.name}}&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        const app = new Vue({
+            el: '#app',
+            data: {
+                activeIndex: 0,
+                list: [{
+                        id: 1,
+                        name: '京东秒杀'
+                    },
+                    {
+                        id: 2,
+                        name: '每日特价'
+                    },
+                    {
+                        id: 3,
+                        name: '品类秒杀'
+                    }
+                ]
+
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="10-v-bind操作style">10、 v-bind操作style</h3>
+<h4 id="101-语法">10.1 语法</h4>
+<pre><code class="language-html">&lt;div class=&quot;box&quot; :style=&quot;{ CSS属性名1: CSS属性值, CSS属性名2: CSS属性值 }&quot;&gt;&lt;/div&gt;
+</code></pre>
+<h4 id="102-代码">10.2 代码</h4>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;style&gt;
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: rgb(187, 150, 156);
+        }
+    &lt;/style&gt;
+
+    &lt;div id=&quot;app&quot;&gt;
+        		// 可以通过变量动态设置样式
+        &lt;div class=&quot;box&quot; :style=&quot;{width:w+'px',backgroundColor:'pink'}&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        const app = new Vue({
+            el: '#app',
+            data: {
+                w:500
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h4 id="103-进度条">10.3 进度条</h4>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;style&gt;
+        .progress {
+          height: 25px;
+          width: 400px;
+          border-radius: 15px;
+          background-color: #272425;
+          border: 3px solid #272425;
+          box-sizing: border-box;
+          margin-bottom: 30px;
+        }
+        .inner {
+          width: 50%;
+          height: 20px;
+          border-radius: 10px;
+          text-align: right;
+          position: relative;
+          background-color: #409eff;
+          background-size: 20px 20px;
+          box-sizing: border-box;
+          transition: all 2s;
+        }
+        .inner span {
+          position: absolute;
+          right: -20px;
+          bottom: -25px;
+        }
+      &lt;/style&gt;
+    
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;div class=&quot;progress&quot;&gt;
+          &lt;div class=&quot;inner&quot;  :style=&quot;{width: w + '%'}&quot;&gt;
+            &lt;span&gt;{{w}}%&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;button @click=&quot;w = 25&quot;&gt;设置25%&lt;/button&gt;
+        &lt;button @click=&quot;w = 50&quot;&gt;设置50%&lt;/button&gt;
+        &lt;button @click=&quot;w = 75&quot;&gt;设置75%&lt;/button&gt;
+        &lt;button @click=&quot;w = 100&quot;&gt;设置100%&lt;/button&gt;
+      &lt;/div&gt;
+    
+      &lt;script&gt;
+        const app = new Vue({
+          el: '#app',
+          data: {
+            w:0,
+          }
+        })
+      &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="11-v-model在其他表单元素的使用">11、v-model在其他表单元素的使用</h3>
+<p>:disabled=&quot;true&quot; 设置按钮状态</p>
+<p>常见的表单元素都可以用 v-model 绑定关联  →  快速 <strong>获取</strong> 或 <strong>设置</strong> 表单元素的值</p>
+<p>它会根据  <strong>控件类型</strong> 自动选取  <strong>正确的方法</strong> 来更新元素</p>
+<pre><code class="language-js">输入框  input:text   ——&gt; value
+文本域  textarea	 ——&gt; value
+复选框  input:checkbox  ——&gt; checked
+单选框  input:radio   ——&gt; checked
+下拉菜单 select    ——&gt; value
+...
+</code></pre>
+<p><strong>代码</strong></p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h3&gt;小黑学习网&lt;/h3&gt;
+        姓名：
+        &lt;input type=&quot;text&quot; v-model=&quot;username&quot;&gt;
+        &lt;br&gt;&lt;br&gt;
+        是否单身：
+        &lt;input type=&quot;checkbox&quot; v-model=&quot;isSingle&quot;&gt;
+        &lt;br&gt;&lt;br&gt;
+        &lt;!-- 
+              前置理解：
+                1. name:  给单选框加上 name 属性 可以分组 → 同一组互相会互斥
+                2. value: 给单选框加上 value 属性，用于提交给后台的数据
+              结合 Vue 使用 → v-model
+            --&gt;
+        性别:
+        &lt;input type=&quot;radio&quot; name=&quot;gender&quot; v-model=&quot;gender&quot; value=&quot;1&quot;&gt;男
+        &lt;input type=&quot;radio&quot; name=&quot;gender&quot; v-model=&quot;gender&quot; value=&quot;2&quot;&gt;女
+        &lt;br&gt;&lt;br&gt;
+        &lt;!-- 
+              前置理解：
+                1. option 需要设置 value 值，提交给后台
+                2. select 的 value 值，关联了选中的 option 的 value 值
+              结合 Vue 使用 → v-model
+            --&gt;
+        所在城市:
+        &lt;select v-model=&quot;cityId&quot;&gt;
+            &lt;option value=&quot;101&quot;&gt;北京&lt;/option&gt;
+            &lt;option value=&quot;102&quot;&gt;上海&lt;/option&gt;
+            &lt;option value=&quot;103&quot;&gt;成都&lt;/option&gt;
+            &lt;option value=&quot;104&quot;&gt;南京&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;br&gt;&lt;br&gt;
+        自我描述：
+        &lt;textarea v-model=&quot;desc&quot;&gt;&lt;/textarea&gt;
+        &lt;br&gt;
+        &lt;button&gt;立即注册&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+        const app = new Vue({
+            el: '#app',
+            data: {
+                username: '',
+                isSingle: false,
+                gender: &quot;2&quot;,
+                cityId: '102',
+                desc: &quot;&quot;
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="73-computed计算属性">7.3 computed计算属性</h2>
+<h3 id="1-语法">1、 语法</h3>
+<ol>
+<li>声明在 <strong>computed 配置项</strong>中，一个计算属性对应一个函数</li>
+<li>使用起来和普通属性一样使用  {{ 计算属性名}}</li>
+</ol>
+<h3 id="2-注意">2、 注意</h3>
+<ol>
+<li>computed配置项和data配置项是<strong>同级</strong>的</li>
+<li>computed中的计算属性<strong>虽然是函数的写法</strong>，但他<strong>依然是个属性</strong></li>
+<li>computed中的计算属性<strong>不能</strong>和data中的属性<strong>同名</strong></li>
+<li>使用computed中的计算属性和使用data中的属性是一样的用法</li>
+<li>computed中计算属性内部的<strong>this</strong>依然<strong>指向的是Vue实例</strong></li>
+</ol>
+<h3 id="3-代码">3、 代码</h3>
+<pre><code class="language-html">&lt;body&gt;
+
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;h3&gt;小黑的礼物清单&lt;/h3&gt;
+        &lt;table&gt;
+            &lt;tr&gt;
+                &lt;th&gt;名字&lt;/th&gt;
+                &lt;th&gt;数量&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr v-for=&quot;(item, index) in list&quot; :key=&quot;item.id&quot;&gt;
+                &lt;td&gt;{{ item.name }}&lt;/td&gt;
+                &lt;td&gt;{{ item.num }}个&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+
+        &lt;!-- 目标：统计求和，求得礼物总数 --&gt;
+        &lt;p&gt;礼物总数：{{total}} 个&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        const app = new Vue({
+            el: '#app',
+            data: {
+                // 现有的数据
+                list: [{
+                        id: 1,
+                        name: '篮球',
+                        num: 1
+                    },
+                    {
+                        id: 2,
+                        name: '玩具',
+                        num: 2
+                    },
+                    {
+                        id: 3,
+                        name: '铅笔',
+                        num: 5
+                    },
+                ]
+            },
+            computed: {
+                //虽然带有括号，当仍然是属性
+                total() {
+                    //数组内容累加求和
+                    return this.list.reduce((sum, item) =&gt; sum + item.num, 0)
+                }
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="4-计算属性和方法">4、 计算属性和方法</h3>
+<h5 id="1computed计算属性">1.computed计算属性</h5>
+<p>作用：封装了一段对于<strong>数据</strong>的处理，求得一个<strong>结果</strong></p>
+<p>语法：</p>
+<ol>
+<li>写在computed配置项中</li>
+<li>作为属性，直接使用
+<ul>
+<li>js中使用计算属性： this.计算属性</li>
+<li>模板中使用计算属性：{{计算属性}}</li>
+</ul>
+</li>
+</ol>
+<h5 id="2methods计算属性">2.methods计算属性</h5>
+<p>作用：给Vue实例提供一个<strong>方法</strong>，调用以<strong>处理业务逻辑</strong>。</p>
+<p>语法：</p>
+<ol>
+<li>写在methods配置项中</li>
+<li>作为方法调用
+<ul>
+<li>js中调用：this.方法名()</li>
+<li>模板中调用 {{方法名()}}  或者 @事件名=“方法名”</li>
+</ul>
+</li>
+</ol>
+<h5 id="3计算属性的优势">3.计算属性的优势</h5>
+<ol>
+<li>
+<p>缓存特性（提升性能）</p>
+<p>计算属性会对计算出来的结果缓存，再次使用直接读取缓存，</p>
+<p>依赖项变化了，会自动重新计算 → 并再次缓存</p>
+</li>
+<li>
+<p>methods没有缓存特性</p>
+</li>
+</ol>
+<h3 id="5-完整写法">5、 完整写法</h3>
+<pre><code class="language-html">&lt;body&gt;
+
+    &lt;div id=&quot;app&quot;&gt;
+        姓：&lt;input type=&quot;text&quot; v-model=&quot;firstName&quot;&gt;
+        名：&lt;input type=&quot;text&quot; v-model=&quot;lastName&quot;&gt;
+        &lt;span&gt;{{name}}&lt;/span&gt;&lt;br&gt;&lt;br&gt;
+        &lt;button @click=&quot;updata&quot;&gt;改名卡&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        const app = new Vue({
+            el: '#app',
+            data: {
+                firstName: '刘',
+                lastName: '备'
+            },
+            computed: {
+                //当computed中存在其他属性时，可以互相调用
+                name: {
+                    get() {
+                        return this.firstName + this.lastName;
+                    },
+                    set(value) {
+                        this.firstName = value.substring(0,1);
+                        this.lastName = value.substring(1);
+                    }
+                }
+            },
+            methods: {
+                updata(){
+                    this.name = &quot;关羽&quot;;
+                }
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="74-watch侦听器监视器">7.4 watch侦听器（监视器）</h2>
+<h3 id="1-作用">1. 作用：</h3>
+<p>​	<strong>监视数据变化</strong>，执行一些业务逻辑或异步操作</p>
+<h3 id="2-语法">2. 语法：</h3>
+<ol>
+<li>
+<p>watch同样声明在跟data同级的配置项中</p>
+</li>
+<li>
+<p>简单写法： 简单类型数据直接监视</p>
+</li>
+<li>
+<p>完整写法：添加额外配置项</p>
+<pre><code class="language-js">data: { 
+  words: '苹果',
+  obj: {
+    words: '苹果'
+  }
+},
+
+watch: {
+  // 该方法会在数据变化时，触发执行
+  数据属性名 (newValue, oldValue) {
+    一些业务逻辑 或 异步操作。 
+  },
+  '对象.属性名' (newValue, oldValue) {
+    一些业务逻辑 或 异步操作。 
+  }
+}
+</code></pre>
+</li>
+</ol>
+<pre><code class="language-JavaScript"> const app = new Vue({
+        el: '#app',
+        data: {
+          words: '',
+        },
+     	//监听器
+       watch:{
+         //当words值发送变化时触发，参数对应更改后的值和旧值
+        words(newValue,oldValue){
+          console.log(newValue);
+          console.log(oldValue);
+        }
+       }
+      })
+</code></pre>
+<h3 id="3-完整写法">3. 完整写法</h3>
+<ol>
+<li>deep:true 对复杂类型进行深度监听</li>
+<li>immdiate:true 初始化 立刻执行一次</li>
+</ol>
+<pre><code class="language-js">data: {
+  obj: {
+    words: '苹果',
+    lang: 'italy'
+  },
+},
+
+watch: {// watch 完整写法
+  对象: {
+    deep: true, // 深度监视
+    immdiate:true,//立即执行handler函数
+    handler (newValue) {
+      console.log(newValue)
+    }
+  }
+}
+
+</code></pre>
+<pre><code class="language-JavaScript">watch: {
+        obj: {
+          deep: true, // 深度监视
+          immdiate: true, //立即执行handler函数
+          handler(newValue) {
+            console.log(newValue)
+          }
+        }
+}
+</code></pre>
+<h3 id="4-总结">4. 总结</h3>
+<p>1.简单写法</p>
+<pre><code class="language-js">watch: {
+  数据属性名 (newValue, oldValue) {
+    一些业务逻辑 或 异步操作。 
+  },
+  '对象.属性名' (newValue, oldValue) {
+    一些业务逻辑 或 异步操作。 
+  }
+}
+</code></pre>
+<p>2.完整写法</p>
+<pre><code class="language-js">watch: {// watch 完整写法
+  数据属性名: {
+    deep: true, // 深度监视(针对复杂类型)
+    immediate: true, // 是否立刻执行一次handler
+    handler (newValue) {
+      console.log(newValue)
+    }
+  }
+}
+</code></pre>
+<h2 id="75-生命周期">7.5 生命周期</h2>
+<p>生命周期四个阶段：① 创建 ② 挂载 ③ 更新 ④ 销毁</p>
+<p>1.创建阶段：创建响应式数据</p>
+<p>2.挂载阶段：渲染模板</p>
+<p>3.更新阶段：修改数据，更新视图</p>
+<p>4.销毁阶段：销毁Vue实例</p>
+<h3 id="钩子函数">钩子函数</h3>
+<pre><code class="language-JavaScript"> const app = new Vue({
+      el: '#app',
+      data: {
+      },
+
+      beforeCreate(){
+        console.log(&quot;创建阶段加载前&quot;);
+      },
+
+      created(){
+        console.log(&quot;创建阶段完成,发送初始化渲染请求&quot;);
+      },
+
+      beforeMount(){
+        console.log(&quot;挂载阶段加载前&quot;);
+      },
+
+      mounted(){
+        console.log(&quot;挂机阶段完成，可以操作dom&quot;);
+      },
+
+	//当视图发生更新时，会重复调用更新阶段
+      beforeUpdate(){
+        console.log(&quot;更新阶段加载前&quot;);
+      },
+
+      updated(){
+        console.log(&quot;更新阶段完成，可以修改数据，更新视图&quot;);
+      },
+
+      beforeDestroy(){
+        console.log(&quot;销毁阶段加载前&quot;);
+      },
+
+      destoryed(){
+        console.log(&quot;销毁阶段完成，销毁实例&quot;);
+      }
+})
+</code></pre>
+<h2 id="76-组件">7.6 组件</h2>
+<h3 id="61-脚手架">6.1 脚手架</h3>
+<h4 id="基本介绍">基本介绍：</h4>
+<p>Vue CLI 是Vue官方提供的一个<strong>全局命令工具</strong></p>
+<p>可以帮助我们<strong>快速创建</strong>一个开发Vue项目的<strong>标准化基础架子</strong>。【集成了webpack配置】</p>
+<h4 id="好处">好处：</h4>
+<ol>
+<li>开箱即用，零配置</li>
+<li>内置babel等工具</li>
+<li>标准化的webpack配置</li>
+</ol>
+<h4 id="使用步骤">使用步骤：</h4>
+<ol>
+<li>全局安装（只需安装一次即可） yarn global add @vue/cli 或者 npm i @vue/cli -g</li>
+<li>查看vue/cli版本： vue --version</li>
+<li>创建项目架子：<strong>vue create project-name</strong>(项目名不能使用中文)</li>
+<li>启动项目：<strong>yarn serve</strong> 或者 <strong>npm run serve</strong>(命令不固定，找package.json)</li>
+</ol>
+<h3 id="62-组件化开发">6.2 组件化开发</h3>
+<h4 id="1-根组件-appvue">1、 根组件 App.vue</h4>
+<p>整个应用最上层的组件，包裹所有普通小组件</p>
+<h4 id="2-组件构成">2、 组件构成</h4>
+<ul>
+<li>
+<p>template：结构 （有且只能一个根元素）</p>
+</li>
+<li>
+<p>script:   js逻辑</p>
+</li>
+<li>
+<p>style： 样式 (可支持less，需要装包)</p>
+</li>
+<li>
+<p>让组件支持less</p>
+<p>（1） style标签，lang=&quot;less&quot; 开启less功能</p>
+<p>（2） 装包: yarn add less less-loader -D 或者npm i less less-loader -D</p>
+</li>
+</ul>
+<h4 id="3-局部注册">3、 局部注册</h4>
+<h5 id="1特点">1.特点：</h5>
+<p>只能在注册的组件内使用</p>
+<h5 id="2步骤">2.步骤：</h5>
+<ol>
+<li>在components中创建.vue文件（三个组成部分）</li>
+<li>在使用的组件内先导入再注册，最后使用</li>
+</ol>
+<pre><code class="language-JavaScript">// 导入需要注册的组件
+import 组件对象 from '.vue文件路径'
+import HmHeader from './components/HmHeader'
+
+export default {  // 局部注册
+  components: {
+   '组件名': 组件对象,
+    HmHeader:HmHeaer,
+    HmHeader
+  }
+}
+</code></pre>
+<pre><code class="language-JavaScript">&lt;script&gt;
+    //导入组件
+import HmHeader from &quot;./components/HmHeader&quot;;
+import HmMain from &quot;./components/HmMain&quot;;
+import HmFooter from &quot;./components/HmFooter&quot;;
+
+export default {
+    //在components中注册
+  components: {
+      //当变量名和变量相同时，可以简写
+    HmHeader,
+    HmMain,
+    HmFooter
+  }
+};
+&lt;/script&gt;
+</code></pre>
+<h5 id="3使用方式">3.使用方式：</h5>
+<p>当成html标签使用即可  &lt;组件名&gt;&lt;/组件名&gt;</p>
+<pre><code class="language-html">&lt;template&gt;
+  &lt;div class=&quot;app&quot;&gt;
+    &lt;HmHeader&gt;&lt;/HmHeader&gt;
+    &lt;HmMain&gt;&lt;/HmMain&gt;
+    &lt;HmFooter&gt;&lt;/HmFooter&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<h5 id="4注意">4.注意：</h5>
+<p>组件名规范 —&gt; 大驼峰命名法， 如 HmHeader</p>
+<h4 id="4-全局注册">4、全局注册</h4>
+<h5 id="1特点-2">1.特点：</h5>
+<p>全局注册的组件，在项目的<strong>任何组件</strong>中都能使用</p>
+<h5 id="2步骤-2">2.步骤</h5>
+<ol>
+<li>在components中创建.vue组件（三个组成部分）</li>
+<li><strong>main.js</strong>中进行全局注册</li>
+</ol>
+<pre><code class="language-JavaScript">import HmButton from &quot;./components/HmButton&quot;
+
+Vue.component(&quot;HmButton&quot;,HmButton)
+</code></pre>
+<h5 id="3使用方式-2">3.使用方式</h5>
+<p>当成HTML标签直接使用</p>
+<pre><code class="language-html">&lt;HmButton&gt;&lt;/HmButton&gt;
+</code></pre>
+<h5 id="4注意-2">4.注意</h5>
+<p>组件名规范 —&gt; 大驼峰命名法， 如 HmHeader</p>
+<h5 id="5语法">5.语法</h5>
+<p>Vue.component('组件名', 组件对象)</p>
+<p>例：</p>
+<pre><code class="language-js">// 导入需要全局注册的组件
+import HmButton from './components/HmButton'
+Vue.component('HmButton', HmButton)
+</code></pre>
+<h3 id="63-scoped解决样式冲突">6.3 scoped解决样式冲突</h3>
+<h4 id="1默认情况">1.默认情况：</h4>
+<p>写在组件中的样式会 <strong>全局生效</strong> →  因此很容易造成多个组件之间的样式冲突问题。</p>
+<ol>
+<li>
+<p><strong>全局样式</strong>: 默认组件中的样式会作用到全局，任何一个组件中都会受到此样式的影响</p>
+</li>
+<li>
+<p><strong>局部样式</strong>: 可以给组件加上<strong>scoped</strong> 属性,可以<strong>让样式只作用于当前组件</strong></p>
+</li>
+</ol>
+<h4 id="2-代码">2. 代码</h4>
+<pre><code class="language-vue">//限制当前样式只作用于当前组件，互不影响
+&lt;style scoped&gt;
+    div {
+        border: 1px solid black;
+        width: 200px;
+        height: 200px;
+    }
+&lt;/style&gt;
+</code></pre>
+<h4 id="3scoped原理">3.scoped原理</h4>
+<ol>
+<li>当前组件内标签都被添加<strong>data-v-hash值</strong> 的属性</li>
+<li>css选择器都被添加 [<strong>data-v-hash值</strong>] 的属性选择器</li>
+</ol>
+<p>最终效果: <strong>必须是当前组件的元素</strong>, 才会有这个自定义属性, 才会被这个样式作用到</p>
+<h3 id="64-data必须是一个函数">6.4 data必须是一个函数</h3>
+<h4 id="1-data为什么要写成函数">1、data为什么要写成函数</h4>
+<p>一个组件的 <strong>data</strong> 选项必须<strong>是一个函数</strong>。目的是为了：保证每个组件实例，维护<strong>独立</strong>的一份<strong>数据</strong>对象。</p>
+<p>每次创建新的组件实例，都会新<strong>执行一次data 函数</strong>，得到一个新对象。</p>
+<h4 id="2-代码-2">2、 代码</h4>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;son&quot;&gt;
+    &lt;button @click=&quot;count++&quot;&gt;+&lt;/button&gt;
+    {{ count }}
+    &lt;button @click=&quot;count--&quot;&gt;-&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      count: 999
+    };
+  }
+};
+&lt;/script&gt;
+</code></pre>
+<h2 id="77-组件通信">7.7 组件通信</h2>
+<h3 id="1-什么是组件通信">1、 什么是组件通信？</h3>
+<p>组件通信，就是指<strong>组件与组件</strong>之间的<strong>数据传递</strong></p>
+<ul>
+<li>组件的数据是独立的，无法直接访问其他组件的数据。</li>
+<li>想使用其他组件的数据，就需要组件通信</li>
+</ul>
+<h3 id="2-组件关系分类">2、 组件关系分类</h3>
+<ol>
+<li>父子关系</li>
+<li>非父子关系</li>
+</ol>
+<h3 id="3-通信解决方案">3、 通信解决方案</h3>
+<ol>
+<li>父子关系之间用**$emit<strong>和</strong>props**传输和接收数据</li>
+<li>非父子之间用<strong>provide &amp; inject</strong>和<strong>eventbus</strong>传输和接收数据</li>
+<li>通用解决方案：<strong>Vuex</strong>（适合复杂业务场景）</li>
+</ol>
+<h3 id="4-父子通信">4、 父子通信</h3>
+<ol>
+<li>父组件通过 <strong>props</strong> 将数据传递给子组件</li>
+<li>子组件利用 <strong>$emit</strong> 通知父组件修改更新</li>
+</ol>
+<h4 id="5-父向子通信代码">5、 父向子通信代码</h4>
+<p><strong>App.vue</strong></p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class&gt;
+      //通过标签传值
+    &lt;BaseItem :msg=&quot;msg&quot;&gt;&lt;/BaseItem&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import BaseItem from &quot;./components/BaseItem&quot;;
+export default {
+  components: {
+    BaseItem
+  },
+  data(){
+    return {
+      msg : &quot;Hello ! ! !&quot;
+    }
+  }
+};
+&lt;/script&gt;
+</code></pre>
+<p><strong>Son.vue</strong></p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;son&quot;&gt;
+      {{msg}}
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+    //通过props接收值
+    props:{
+        //注册变量属性
+        msg:{
+            msg : String
+        }
+    }
+};
+&lt;/script&gt;
+</code></pre>
+<h4 id="6-子向父通信代码示例">6、 子向父通信代码示例</h4>
+<p><strong>App.vue</strong></p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class&gt;
+      //通过监听子组件传递的属性名，调用方法
+    &lt;BaseItem @hand=&quot;hand&quot; :msg=&quot;msg&quot;&gt;&lt;/BaseItem&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import BaseItem from &quot;./components/BaseItem&quot;;
+export default {
+  components: {
+    BaseItem
+  },
+  data(){
+    return {
+      msg : &quot;Hello ! ! !&quot;
+    }
+  },
+  methods:{
+      //通过该方法被触发，获取传递的值
+    hand(msg){
+      this.msg = msg
+    }
+  }
+};
+&lt;/script&gt;
+</code></pre>
+<p><strong>Son.vue</strong></p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;son&quot;&gt;
+      {{msg}}
+      //添加单击事件触发值传递
+      &lt;button @click=&quot;Hand&quot;&gt;切换&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+    props:{
+        msg:{
+            msg : String
+        }
+    },
+    methods:{
+        Hand(){
+            //通过调用$emit将值传递给父组件
+            this.$emit(&quot;hand&quot;,&quot;Vue! ! &quot;)
+        }
+    }
+};
+&lt;/script&gt;
+</code></pre>
+<h3 id="5-什么是props">5、 什么是props</h3>
+<h4 id="1-props-定义">1. Props 定义</h4>
+<p>组件上 注册的一些  自定义属性</p>
+<h4 id="2-props-作用">2. Props 作用</h4>
+<p>接收父组件传递的数据</p>
+<h4 id="3-特点">3. 特点</h4>
+<ol>
+<li>可以 传递 <strong>任意数量</strong> 的prop</li>
+<li>可以 传递 <strong>任意类型</strong> 的prop</li>
+</ol>
+<h4 id="4-代码">4. 代码</h4>
+<p><strong>App.vue</strong></p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class&gt;
+    &lt;BaseItem 
+    //参数绑定
+    :uname=&quot;uname&quot; 
+    :age=&quot;age&quot; 
+    :subject=&quot;subject&quot; 
+    :car=&quot;car&quot; 
+    &gt;&lt;/BaseItem&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import BaseItem from &quot;./components/BaseItem&quot;;
+export default {
+  components: {
+    BaseItem
+  },
+  data() {
+    return {
+      uname: &quot;小帅&quot;,
+      age: 28,
+      subject: [&quot;语文&quot;, &quot;数学&quot;, &quot;英语&quot;],
+      car: {
+        brand: &quot;宝马&quot;
+      }
+    };
+  }
+};
+&lt;/script&gt;
+</code></pre>
+<p><strong>Son.vue</strong></p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;son&quot;&gt;
+      {{uname}}
+      {{age}}  
+      {{subject[1]}}  
+      {{car.brand}}  
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+   props:[&quot;uname&quot;,&quot;age&quot;,&quot;subject&quot;,&quot;car&quot;]
+};
+&lt;/script&gt;
+</code></pre>
+<h4 id="5-props校验">5. props校验</h4>
+<h5 id="1-作用-2">1、 作用</h5>
+<p>为组件的 prop 指定<strong>验证要求</strong>，不符合要求，控制台就会有<strong>错误提示</strong>  → 帮助开发者，快速发现错误</p>
+<h5 id="2-语法-2">2、 语法</h5>
+<ul>
+<li><strong>类型校验</strong></li>
+<li>非空校验</li>
+<li>默认值</li>
+<li>自定义校验</li>
+</ul>
+<pre><code class="language-vue">props:{
+	校验属性名： 类型 //Number,String,Array,Object
+}
+</code></pre>
+<h5 id="3-代码-2">3、 代码</h5>
+<p>Son.vue</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;son&quot;&gt;
+      {{uname}}
+      {{age}}  
+      {{subject[1]}}  
+      {{car.brand}}  
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+    props:{
+        uname:{
+            uname : String
+        },
+        age:{
+            age:Number
+        },
+        subject:{
+            subject:Array
+        },
+        car:{
+            car:Object
+        }
+    },
+};
+&lt;/script&gt;
+</code></pre>
+<h4 id="6-props校验完整写法">6. props校验完整写法</h4>
+<h5 id="1-语法-2">1、 语法</h5>
+<pre><code class="language-vue">props: {
+  校验的属性名: {
+    type: 类型,  // Number String Boolean ...
+    required: true, // 是否必填
+    default: 默认值, // 默认值
+    validator (value) {
+      // 自定义校验逻辑
+      return 是否通过校验
+    }
+  }
+},
+</code></pre>
+<h5 id="2-代码-3">2、 代码</h5>
+<pre><code class="language-vue">&lt;script&gt;
+export default {
+  // 完整写法（类型、默认值、非空、自定义校验）
+  props: {
+    w: {
+      type: Number,
+      //required: true,
+      default: 0,
+      validator(val) {
+        // console.log(val)
+        if (val &gt;= 100 || val &lt;= 0) {
+          console.error('传入的范围必须是0-100之间')
+          return false
+        } else {
+          return true
+        }
+      },
+    },
+  },
+}
+&lt;/script&gt;
+</code></pre>
+<h5 id="3-注意">3、 注意</h5>
+<p>1.default和required一般不同时写（因为当时必填项时，肯定是有值的）</p>
+<p>2.default后面如果是简单类型的值，可以直接写默认。如果是复杂类型的值，则需要以函数的形式return一个默认值</p>
+<h4 id="7-propsdata-单向数据流">7. props&amp;data、单向数据流</h4>
+<h5 id="1-共同点">1、 共同点</h5>
+<p>都可以给组件提供数据</p>
+<h5 id="2-区别">2、 区别</h5>
+<ul>
+<li>data 的数据是<strong>自己</strong>的  →   随便改</li>
+<li>prop 的数据是<strong>外部</strong>的  →   不能直接改，要遵循 <strong>单向数据流</strong></li>
+</ul>
+<h5 id="3-单向数据流">3、 单向数据流：</h5>
+<p>父级props 的数据更新，会向下流动，影响子组件。这个数据流动是单向的</p>
+<h3 id="6-非父子通信">6、 非父子通信</h3>
+<h4 id="1-事件总线">1、 事件总线</h4>
+<p>作用：非父子组件之间，进行简易消息传递。</p>
+<ul>
+<li>
+<p><strong>创建一个都能访问到的事件总线 (空 Vue 实例) → utils/EventBus.js</strong></p>
+<ul>
+<li>
+<pre><code class="language-JavaScript">import Vue from &quot;vue&quot;
+
+const Bus = new Vue()
+
+export default Bus
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>A 组件(接收方)，监听 Bus 实例的事件</strong></p>
+<ul>
+<li>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;h1&gt;{{ msg }}&lt;/h1&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import Bus from &quot;@/utlis/EventBus&quot;;
+export default {
+  data() {
+    return {
+      msg: &quot;&quot;
+    };
+  },
+    //监听事件
+  created() {
+    Bus.$on(&quot;setMessage&quot;, msg =&gt; {
+      this.msg = msg;
+    });
+  }
+};
+&lt;/script&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>B 组件(发送方)，触发 Bus 实例的事件</strong></p>
+<ul>
+<li>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;button @click=&quot;setMsg&quot;&gt;发送消息&lt;/button&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import Bus from &quot;@/utlis/EventBus&quot;;
+    
+export default {
+  methods: {
+    setMsg() {
+      Bus.$emit(&quot;setMessage&quot;, &quot;今天下雨了&quot;);
+    }
+  }
+};
+&lt;/script&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-provide-inject">2、 provide &amp; inject</h4>
+<p><strong>作用</strong>：跨层级共享数据。</p>
+<ul>
+<li>
+<p>父组件 provide 提供数据</p>
+<ul>
+<li>
+<pre><code class="language-javascript">data() {
+   return {
+     userInfo: {
+       name: &quot;张三&quot;,
+       age: 21
+     }
+   };
+ },
+ provide() {
+   return {
+     color: &quot;red&quot;,
+     userInfo: this.userInfo
+   };
+ }
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>子/孙组件 inject 取值使用</p>
+<ul>
+<li>
+<pre><code class="language-JavaScript">&lt;script&gt;
+export default {
+    inject:[&quot;color&quot;,&quot;userInfo&quot;],
+    created(){
+        console.log(this.color,this.userInfo);
+    }
+};
+&lt;/script&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="78-进阶语法">7.8 进阶语法</h2>
+<h3 id="1-v-model原理">1、 V-model原理</h3>
+<h4 id="1原理">1.原理：</h4>
+<p>v-model本质上是一个语法糖。例如应用在输入框上，就是value属性 和 input事件 的合写</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div id=&quot;app&quot; &gt;
+    &lt;input v-model=&quot;msg&quot; type=&quot;text&quot;&gt;
+
+    &lt;input :value=&quot;msg&quot; @input=&quot;msg = $event.target.value&quot; type=&quot;text&quot;&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+</code></pre>
+<h4 id="2作用">2.作用：</h4>
+<p>提供数据的双向绑定</p>
+<ul>
+<li>数据变，视图跟着变 :value</li>
+<li>视图变，数据跟着变 @input</li>
+</ul>
+<h4 id="3注意">3.注意</h4>
+<p><strong>$event</strong> 用于在模板中，获取事件的形参</p>
+<h5 id="4v-model使用在其他表单元素上的原理">4.v-model使用在其他表单元素上的原理</h5>
+<p>不同的表单元素， v-model在底层的处理机制是不一样的。比如给checkbox使用v-model</p>
+<p>底层处理的是 checked属性和change事件。</p>
+<h3 id="2-v-model简化代码">2、 v-model简化代码</h3>
+<h4 id="1-如何简化">1. 如何简化：</h4>
+<p>v-model其实就是 :value和@input事件的简写</p>
+<ul>
+<li>子组件：props通过value接收数据，事件触发 input</li>
+<li>父组件：v-model直接绑定数据</li>
+</ul>
+<h4 id="2-代码-4">2. 代码</h4>
+<p>子组件</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+      //:value 获取值并渲染，@change修改时提交到父组件
+    &lt;select :value=&quot;value&quot; @change=&quot;handle&quot; &gt;
+      &lt;option value=&quot;101&quot;&gt;北京&lt;/option&gt;
+      &lt;option value=&quot;102&quot;&gt;上海&lt;/option&gt;
+      &lt;option value=&quot;103&quot;&gt;武汉&lt;/option&gt;
+      &lt;option value=&quot;104&quot;&gt;广州&lt;/option&gt;
+      &lt;option value=&quot;105&quot;&gt;深圳&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props:{
+      value:Number
+  },
+  methods:{
+      handle(e){
+          //v-model监听的input事件
+          this.$emit(&quot;input&quot;,e.target.value)
+      }
+  }
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+&lt;/style&gt;
+</code></pre>
+<p>父组件</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;BaseSelect v-model=&quot;selectId&quot;&gt;&lt;/BaseSelect&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import BaseSelect from &quot;@/components/BaseSelect&quot;;
+export default {
+  components: {
+    BaseSelect
+  },
+  data() {
+    return {
+      selectId:103
+    };
+  }
+};
+&lt;/script&gt;
+
+&lt;style&gt;
+&lt;/style&gt;
+</code></pre>
+<h3 id="3-sync修饰符">3、 .sync修饰符</h3>
+<h4 id="1作用">1.作用</h4>
+<p>可以实现 <strong>子组件</strong> 与 <strong>父组件数据</strong> 的 <strong>双向绑定</strong>，简化代码</p>
+<p>简单理解：<strong>子组件可以修改父组件传过来的props值</strong></p>
+<h4 id="2场景">2.场景</h4>
+<p>封装弹框类的基础组件， visible属性 true显示 false隐藏</p>
+<h4 id="3本质">3.本质</h4>
+<p>.sync修饰符 就是 <strong>:属性名</strong> 和 <strong>@update:属性名</strong> 合写</p>
+<h4 id="4-代码-2">4. 代码</h4>
+<p>父组件</p>
+<pre><code class="language-vue">//可实现数据双向绑定
+&lt;BaseSelect :isShow.sync=&quot;isShow&quot;&gt;&lt;/BaseSelect&gt;
+</code></pre>
+<p>子组件</p>
+<pre><code class="language-vue">methods:{
+	//当执行该方法时，会直接修改父组件的isShow的值
+    closeDialog(){
+    this.$emit(&quot;update:isShow&quot;,false)
+    }
+}
+</code></pre>
+<h3 id="4-ref和refs">4、 ref和$refs</h3>
+<h4 id="1作用-2">1.作用</h4>
+<p>利用ref 和 $refs 可以用于 获取 dom 元素 或 组件实例</p>
+<h4 id="2特点">2.特点：</h4>
+<p>查找范围 →  当前组件内(更精确稳定)</p>
+<h4 id="3语法">3.语法</h4>
+<p>1.给要获取的盒子添加ref属性</p>
+<pre><code class="language-html">&lt;div ref=&quot;chartRef&quot;&gt;我是渲染图表的容器&lt;/div&gt;
+</code></pre>
+<p>2.获取时通过 $refs获取  this.$refs.chartRef 获取</p>
+<pre><code class="language-html">mounted () {
+  console.log(this.$refs.chartRef)
+}
+</code></pre>
+<h4 id="4注意-3">4.注意</h4>
+<p>之前只用document.querySelect('.box') ，获取过程是从整个页面中找某一个盒子，效率比较低</p>
+<h3 id="5-nexttick">5、 $nextTick</h3>
+<p>$nextTick：<strong>等 DOM更新后</strong>,才会触发执行此方法里的函数体</p>
+<p><strong>语法:</strong> this.$nextTick(函数体)</p>
+<pre><code class="language-js">this.$nextTick(() =&gt; {
+    //当dom被加载完成后，马上获取焦点
+  this.$refs.inp.focus()
+})
+</code></pre>
+<p><strong>注意：</strong>$nextTick 内的函数体 一定是<strong>箭头函数</strong>，这样才能让函数内部的this指向Vue实例</p>
+<h2 id="79-自定义指令">7.9 自定义指令</h2>
+<h3 id="1-自定义指令">1. 自定义指令</h3>
+<p>概念：自己定义的指令，可以<strong>封装一些DOM操作</strong>，扩展额外的功能</p>
+<h3 id="2-自定义指令语法">2. 自定义指令语法</h3>
+<ul>
+<li>
+<p>全局注册</p>
+<pre><code class="language-js">//在main.js中
+Vue.directive('指令名', {
+  &quot;inserted&quot; (el) {
+    // el相当于当前标签
+    el.focus()
+  }
+})
+</code></pre>
+</li>
+<li>
+<p>局部注册</p>
+<pre><code class="language-vue">//在Vue组件的配置项中
+directives: {
+  &quot;指令名&quot;: {
+    inserted (el) {
+      // 可以对 el 标签，扩展额外功能
+      el.focus()
+    }
+  }
+}
+</code></pre>
+</li>
+<li>
+<p>使用指令</p>
+<p>注意：在使用指令的时候，一定要<strong>先注册</strong>，<strong>再使用</strong>，否则会报错<br>
+使用指令语法： v-指令名。如：<input type="text"  v-focus/></p>
+<p><strong>注册</strong>指令时<strong>不用</strong>加<strong>v-前缀</strong>，但<strong>使用时</strong>一定要<strong>加v-前缀</strong></p>
+</li>
+</ul>
+<h3 id="3-指令中的配置项">3. 指令中的配置项</h3>
+<p>inserted:被绑定元素插入父节点时调用的钩子函数</p>
+<p>el：使用指令的那个DOM元素</p>
+<h3 id="4-代码-3">4. 代码</h3>
+<pre><code class="language-vue"> &lt;input type=&quot;text&quot; v-model=&quot;editValue&quot; v-focus/&gt;
+</code></pre>
+<h3 id="5-自定义指令的值">5. 自定义指令的值</h3>
+<p>1.在绑定指令时，可以通过“等号”的形式为指令 绑定 具体的参数值</p>
+<pre><code class="language-html">&lt;div v-color=&quot;color&quot;&gt;我是内容&lt;/div&gt;
+</code></pre>
+<p>2.通过 binding.value 可以拿到指令值，<strong>指令值修改会 触发 update 函数</strong></p>
+<pre><code class="language-js">directives: {
+  color: {
+    inserted (el, binding) {
+        //el为当前指令挂载标签，binding.value所获取的是指令的参数值
+      el.style.color = binding.value
+    },
+    update (el, binding) {
+      el.style.color = binding.value
+    }
+  }
+}
+</code></pre>
+<h2 id="710-插槽">7.10 插槽</h2>
+<h3 id="1-作用-3">1. 作用</h3>
+<p>让组件内部的一些 <strong>结构</strong> 支持 <strong>自定义</strong></p>
+<h3 id="2-插槽的基本语法">2. 插槽的基本语法</h3>
+<ol>
+<li>组件内需要定制的结构部分，改用**<slot></slot>**占位</li>
+<li>使用组件时, **<MyDialog></MyDialog>**标签内部, 传入结构替换slot</li>
+<li>给插槽传入内容时，可以传入<strong>纯文本、html标签、组件</strong></li>
+</ol>
+<h3 id="3-代码-3">3. 代码</h3>
+<p>MyDialog.vue</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;app&quot;&gt;
+    &lt;div&gt;
+      我是:
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      color: &quot;red&quot;
+    };
+  },
+  methods: {}
+};
+&lt;/script&gt; 
+
+&lt;style lang=&quot;stylus&quot; scoped&gt;&lt;/style&gt;
+</code></pre>
+<p>App.vue</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;BaseSelect&gt;
+    &lt;MyDialog&gt;
+      &lt;strong&gt;张三&lt;/strong&gt;
+    &lt;/MyDialog&gt;
+  &lt;/BaseSelect&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import BaseSelect from &quot;./components/BaseSelect&quot;;
+export default {
+  components: {
+    BaseSelect
+  }
+};
+&lt;/script&gt;
+
+&lt;style&gt;
+&lt;/style&gt;
+</code></pre>
+<h3 id="4-插槽默认值">4. 插槽默认值</h3>
+<p>在 <slot> 标签内，放置内容, 作为默认显示内容</p>
+<p><strong>效果</strong></p>
+<ul>
+<li>
+<p>外部使用组件时，不传东西，则slot会显示后备内容</p>
+</li>
+<li>
+<p>外部使用组件时，传东西了，则slot整体会被换掉</p>
+</li>
+</ul>
+<h3 id="5-具名插槽">5. 具名插槽</h3>
+<h4 id="1-语法-3">1、 语法</h4>
+<ul>
+<li>
+<p>多个slot使用name属性区分名字</p>
+<ul>
+<li>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;app&quot;&gt;
+    &lt;div&gt;
+      我是:
+      &lt;slot name=&quot;head&quot;&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      身高:
+      &lt;slot name=&quot;high&quot;&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>template配合v-slot:名字来分发对应标签</p>
+<ul>
+<li>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;BaseSelect&gt;
+    &lt;template v-slot:head&gt;张三&lt;/template&gt;
+    &lt;template v-slot:high&gt;182&lt;/template&gt;
+  &lt;/BaseSelect&gt;
+&lt;/template&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-简写">2、 简写</h4>
+<p>v-slot写起来太长，vue给我们提供一个简单写法 <strong>v-slot —&gt; #</strong></p>
+<h3 id="6-作用域插槽">6. 作用域插槽</h3>
+<h4 id="1-作用-4">1、 作用</h4>
+<p>定义slot 插槽的同时, 是可以<strong>传值</strong>的。给 <strong>插槽</strong> 上可以 <strong>绑定数据</strong>，将来 <strong>使用组件时可以用</strong></p>
+<h4 id="2-使用步骤">2、 使用步骤</h4>
+<ol>
+<li>
+<p>给 slot 标签, 以 添加属性的方式传值</p>
+<pre><code class="language-vue">&lt;slot id=&quot;1&quot; msg=&quot;测试文本&quot;&gt;&lt;/slot&gt;
+</code></pre>
+</li>
+<li>
+<p>所有添加的属性, 都会被收集到一个对象中</p>
+<pre><code class="language-vue">{ id: 1, msg: '测试文本' }
+</code></pre>
+</li>
+<li>
+<p>在template中, 通过  <code> #插槽名= &quot;obj&quot;</code> 接收，默认插槽名为 default</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;BaseSelect&gt;
+    &lt;template #default=&quot;obj&quot;&gt;
+      &lt;div&gt;{{obj.id}}&lt;/div&gt;
+      &lt;div&gt;{{obj.msg}}&lt;/div&gt;
+    &lt;/template&gt;
+  &lt;/BaseSelect&gt;
+&lt;/template&gt;
+</code></pre>
+</li>
+</ol>
+<h2 id="711-路由">7.11 路由</h2>
+<h3 id="1-基本使用">1、 基本使用</h3>
+<p>固定5个固定的步骤</p>
+<ol>
+<li>
+<p>下载 VueRouter 模块到当前工程，版本3.6.5</p>
+<pre><code class="language-bash">npm install vue-router@3.6.5
+</code></pre>
+</li>
+<li>
+<p>main.js中引入VueRouter</p>
+<pre><code class="language-vue">import VueRouter from 'vue-router'
+</code></pre>
+</li>
+<li>
+<p>安装注册</p>
+<pre><code class="language-vue">Vue.use(VueRouter)
+</code></pre>
+</li>
+<li>
+<p>创建路由对象</p>
+<pre><code class="language-vue">const router = new VueRouter()
+</code></pre>
+</li>
+<li>
+<p>注入，将路由对象注入到new Vue实例中，建立关联</p>
+<pre><code class="language-vue">new Vue({
+  render: h =&gt; h(App),
+  router:router
+}).$mount('#app')
+
+</code></pre>
+</li>
+</ol>
+<p>当配置完以上5步之后 浏览器地址栏中的路由 变成了 /#/的形式。表示项目的路由已经被Vue-Router管理了</p>
+<pre><code class="language-vue">import Vue from 'vue'
+import App from './App.vue'
+import VueRouter from 'vue-router'
+
+const router = new VueRouter()
+Vue.use(VueRouter)
+Vue.config.productionTip = false
+
+new Vue({
+  render: h =&gt; h(App),
+  router:router
+}).$mount('#app')
+
+</code></pre>
+<h3 id="2-核心步骤">2、 核心步骤</h3>
+<ol>
+<li>创建需要的组件 (views目录)，配置路由规则main.js</li>
+</ol>
+<pre><code class="language-javascript">import Vue from 'vue'
+import App from './App.vue'
+
+Vue.config.productionTip = false
+
+import VueRouter from 'vue-router'
+
+import MyFind from &quot;@/view/MyFind&quot;
+import MyFriend from &quot;@/view/MyFriend&quot;
+import MyMusic from &quot;@/view/MyMusic&quot;
+
+Vue.use(VueRouter)
+const router = new VueRouter({
+  routes: [{
+      path: '/find',
+      component: MyFind
+    },
+    {
+      path: '/friend',
+      component: MyFriend
+    },
+    {
+      path: '/my',
+      component: MyMusic
+    }
+  ]
+})
+
+new Vue({
+  render: h =&gt; h(App),
+  router: router
+}).$mount('#app')
+</code></pre>
+<ol>
+<li>
+<p>配置导航，配置路由出口(路径匹配的组件显示的位置)</p>
+<p>App.vue</p>
+<pre><code class="language-vue">&lt;div class=&quot;footer_wrap&quot;&gt;
+  &lt;a href=&quot;#/find&quot;&gt;发现音乐&lt;/a&gt;
+  &lt;a href=&quot;#/my&quot;&gt;我的音乐&lt;/a&gt;
+  &lt;a href=&quot;#/friend&quot;&gt;朋友&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;top&quot;&gt;
+  &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/div&gt;
+</code></pre>
+</li>
+</ol>
+<h3 id="3-路由封装">3、 路由封装</h3>
+<ul>
+<li>
+<p>将路由抽离至router -&gt; index.js</p>
+<ul>
+<li>
+<pre><code class="language-JavaScript">import VueRouter from 'vue-router'
+import Vue from 'vue'
+
+import MyFind from &quot;@/view/MyFind&quot;
+import MyFriend from &quot;@/view/MyFriend&quot;
+import MyMusic from &quot;@/view/MyMusic&quot;
+
+Vue.use(VueRouter)
+const router = new VueRouter({
+  routes: [{
+      path: '/find',
+      component: MyFind
+    },
+    {
+      path: '/friend',
+      component: MyFriend
+    },
+    {
+      path: '/my',
+      component: MyMusic
+    }
+  ]
+})
+
+export default router
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>main.js中导入配置</p>
+<ul>
+<li>
+<pre><code class="language-JavaScript">import Vue from 'vue'
+import App from './App.vue'
+
+Vue.config.productionTip = false
+
+//引入js文件
+import router from &quot;@/router/index&quot;
+
+new Vue({
+  render: h =&gt; h(App),
+    //注册
+  router: router
+}).$mount('#app')
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-重定向">4、 重定向</h3>
+<p>网页打开时， url 默认是 / 路径，未匹配到组件时，会出现空白</p>
+<h4 id="1-解决方案">1 解决方案</h4>
+<p><strong>重定向</strong> → 匹配 / 后, 强制跳转 /home 路径</p>
+<h4 id="2-语法-3">2 语法</h4>
+<pre><code class="language-js">{ path: 匹配路径, redirect: 重定向到的路径 },
+比如：
+{ path:'/' ,redirect:'/home' }
+</code></pre>
+<h4 id="3-代码-4">3 代码</h4>
+<pre><code class="language-JavaScript"> routes: [
+    {
+        //当没有主页时，会跳转到/friend网页下
+      path:'/',
+      redirect:&quot;/friend&quot;
+    },
+    {
+      path: '/friend',
+      component: MyFriend
+    },
+  ]
+</code></pre>
+<h3 id="5-404">5、404</h3>
+<p>当路径找不到匹配时，给个提示页面</p>
+<h4 id="1-位置">1 位置</h4>
+<p>404的路由，虽然配置在任何一个位置都可以，但一般都<strong>配置在其他路由规则的最后面</strong></p>
+<h4 id="2-语法-4">2 语法</h4>
+<p>path: &quot;*&quot;   (任意路径) – 前面不匹配就命中最后这个</p>
+<pre><code class="language-js">//导入404网页
+import NotFind from '@/views/NotFind'
+
+const router = new VueRouter({
+  routes: [
+    ...
+    { path: '*', component: NotFind } //最后一个
+  ]
+})
+</code></pre>
+<h3 id="6-模式设置">6、 模式设置</h3>
+<p>路由的路径有#</p>
+<ul>
+<li>hash路由(默认)        例如:  http://localhost:8080/#/home</li>
+<li>history路由(常用)     例如: http://localhost:8080/home   (以后上线需要服务器端支持，开发环境webpack给规避掉了history模式的问题)</li>
+</ul>
+<p><strong>语法</strong></p>
+<pre><code class="language-js">const router = new VueRouter({
+    mode:'histroy', //默认是hash
+    routes:[]
+})
+</code></pre>
+<h2 id="712-声明式导航">7.12 声明式导航</h2>
+<h3 id="1-作用-5">1、 作用</h3>
+<p>实现导航高亮效果</p>
+<h3 id="2-router-link">2、 router-link</h3>
+<p>vue-router提供了一个全局组件 router-link (取代 a 标签)</p>
+<ul>
+<li><strong>能跳转</strong>，配置 to 属性指定路径(<strong>必须</strong>) 。本质还是 a 标签 ，<strong>to 无需 #</strong></li>
+<li><strong>能高亮</strong>，默认就会提供<strong>高亮类名</strong>，可以直接设置高亮样式</li>
+</ul>
+<p>语法： <router-link to="path的值">发现音乐</router-link></p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+    &lt;div class=&quot;footer_wrap&quot;&gt;
+      &lt;router-link to=&quot;/find&quot;&gt;发现音乐&lt;/router-link&gt;
+      &lt;router-link to=&quot;/my&quot;&gt;我的音乐&lt;/router-link&gt;
+      &lt;router-link to=&quot;/friend&quot;&gt;朋友&lt;/router-link&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;top&quot;&gt;
+      &lt;!-- 路由出口 → 匹配的组件所展示的位置 --&gt;
+      &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<h3 id="3-router-link的样式">3、 router-link的样式</h3>
+<p>使用router-link跳转后。当前点击的链接默认加了两个class的值 <code>router-link-exact-active</code>和<code>router-link-active</code></p>
+<h4 id="31-router-link-active">3.1 router-link-active</h4>
+<p><strong>模糊匹配（用的多）</strong></p>
+<p>to=&quot;/my&quot;  可以匹配 /my    /my/a    /my/b    ....</p>
+<p>只要是以/my开头的路径 都可以和 to=&quot;/my&quot;匹配到</p>
+<h4 id="32-router-link-exact-active">3.2 router-link-exact-active</h4>
+<p><strong>精确匹配</strong></p>
+<p>to=&quot;/my&quot; 仅可以匹配  /my</p>
+<h3 id="4-自定义类名">4、 自定义类名</h3>
+<p>可以在创建路由对象时，额外配置两个配置项<code>linkActiveClass</code>和<code>linkExactActiveClass</code>可以修改默认类名</p>
+<pre><code class="language-js">const router = new VueRouter({
+  routes: [...],
+  linkActiveClass: &quot;类名1&quot;,
+  linkExactActiveClass: &quot;类名2&quot;
+})
+</code></pre>
+<pre><code class="language-JavaScript">// 创建了一个路由对象
+const router = new VueRouter({
+  routes: [
+    ...
+  ], 
+  linkActiveClass: 'active', // 配置模糊匹配的类名
+  linkExactActiveClass: 'exact-active' // 配置精确匹配的类名
+})
+</code></pre>
+<h3 id="5-查询参数传参">5、 查询参数传参</h3>
+<ul>
+<li>
+<p>如何传参</p>
+<p><router-link to="/path?参数名=值"></router-link></p>
+</li>
+<li>
+<p>如何接受参数</p>
+<p>固定用法：$router.query.参数名</p>
+</li>
+</ul>
+<pre><code class="language-vue"> &lt;router-link to=&quot;/find?key=黑马程序员&quot;&gt;发现音乐&lt;/router-link&gt;
+</code></pre>
+<pre><code class="language-vue">&lt;div&gt;{{$route.query.key}}&lt;/div&gt;
+</code></pre>
+<h3 id="6-动态路由传参">6、 动态路由传参</h3>
+<ul>
+<li>
+<p>配置动态路由</p>
+<blockquote>
+<p>动态路由后面的参数可以随便起名，但要有语义</p>
+</blockquote>
+<pre><code class="language-js">const router = new VueRouter({
+  routes: [
+    ...,
+    { 
+      path: '/search/:words', 
+      component: Search 
+    }
+  ]
+})
+</code></pre>
+</li>
+<li>
+<p>配置导航链接</p>
+<p>to=&quot;/path/参数值&quot;</p>
+</li>
+<li>
+<p>对应页面组件<strong>接受参数</strong></p>
+<p>$route.<strong>params</strong>.参数名</p>
+<blockquote>
+<p>params后面的参数名要和动态路由配置的参数保持一致</p>
+</blockquote>
+</li>
+</ul>
+<pre><code class="language-vue">  path: '/find/:words',
+</code></pre>
+<pre><code class="language-vue">&lt;router-link to=&quot;/find/黑马程序员&quot;&gt;发现音乐&lt;/router-link&gt;
+</code></pre>
+<pre><code class="language-vue">&lt;div&gt;{{$route.params.words}}&lt;/div&gt;
+</code></pre>
+<h3 id="7-参数传参区别">7、 参数传参区别</h3>
+<ol>
+<li>
+<p>查询参数传参  (比较适合传<strong>多个参数</strong>)</p>
+<ol>
+<li>跳转：to=&quot;/path?参数名=值&amp;参数名2=值&quot;</li>
+<li>获取：$route.query.参数名</li>
+</ol>
+</li>
+<li>
+<p>动态路由传参 (<strong>优雅简洁</strong>，传单个参数比较方便)</p>
+<ol>
+<li>配置动态路由：path: &quot;/path/:参数名&quot;</li>
+<li>跳转：to=&quot;/path/参数值&quot;</li>
+<li>获取：$route.params.参数名</li>
+</ol>
+<p>注意：动态路由也可以传多个参数，但一般只传一个</p>
+</li>
+</ol>
+<h3 id="8-动态路由参数的可选符">8、 动态路由参数的可选符</h3>
+<p>当配了路由 path:&quot;/search/:words&quot; ，但是不传递参数，页面将会不加载任何标签</p>
+<p>/search/:words  表示，<strong>必须要传参数</strong>。如果不传参数，也希望匹配，可以加个可选符&quot;？&quot;</p>
+<pre><code class="language-JavaScript">const router = new VueRouter({
+  routes: [
+ 	...
+    { path: '/search/:words?', component: Search }
+  ]
+})
+</code></pre>
+<h3 id="9-按钮跳转">9、 按钮跳转</h3>
+<h4 id="1-path路径跳转语法">1 path路径跳转语法</h4>
+<p>特点：简易方便</p>
+<pre><code class="language-js">//简单写法
+this.$router.push('路由路径')
+
+//完整写法
+this.$router.push({
+  path: '路由路径'
+})
+</code></pre>
+<h4 id="2-name命名路由跳转">2 name命名路由跳转</h4>
+<p>特点：适合 path 路径长的场景</p>
+<p>语法：</p>
+<ul>
+<li>
+<p>路由规则，必须配置name配置项</p>
+<pre><code class="language-js">{ name: '路由名', path: '/path/xxx', component: XXX },
+</code></pre>
+</li>
+<li>
+<p>通过name来进行跳转</p>
+<pre><code class="language-js">this.$router.push({
+  name: '路由名'
+})
+</code></pre>
+</li>
+</ul>
+<h3 id="10-按钮传参跳转">10、 按钮传参跳转</h3>
+<h4 id="1-path路径跳转传参">1 path路径跳转传参</h4>
+<pre><code class="language-js">//简单写法
+this.$router.push('/路径?参数名1=参数值1&amp;参数2=参数值2')
+
+//完整写法
+this.$router.push({
+  path: '/路径',
+  query: {
+    参数名1: '参数值1',
+    参数名2: '参数值2'
+  }
+})
+</code></pre>
+<p>接受参数的方式依然是：$route.query.参数名</p>
+<h4 id="2-动态路由传参">2 动态路由传参</h4>
+<pre><code class="language-js">//简单写法
+this.$router.push('/路径/参数值')
+
+//完整写法
+this.$router.push({
+  path: '/路径/参数值'
+})
+</code></pre>
+<p>接受参数的方式依然是：$route.params.参数值</p>
+<p>**注意：**path不能配合params使用</p>
+<h4 id="3-name命名路由传参">3 name命名路由传参</h4>
+<h5 id="1name-命名路由跳转传参">1.name 命名路由跳转传参</h5>
+<pre><code class="language-js">this.$router.push({
+  name: '路由名字',
+  query: {
+    参数名1: '参数值1',
+    参数名2: '参数值2'
+  }
+})
+</code></pre>
+<h5 id="2name-命名动态路由传参">2.name 命名动态路由传参</h5>
+<pre><code class="language-js">this.$router.push({
+  name: '路由名字',
+  params: {
+    参数名: '参数值',
+  }
+})
+</code></pre>
+<h2 id="7121-">7.12.1 ---</h2>
+<h3 id="1-配置二级路由">1、 配置二级路由</h3>
+<p>当在页面中点击链接跳转，只是部分内容切换时，我们可以使用嵌套路由</p>
+<h4 id="1语法">1.语法</h4>
+<ul>
+<li>在一级路由下，配置children属性即可</li>
+<li>配置二级路由的出口</li>
+</ul>
+<p>1.在一级路由下，配置children属性</p>
+<p><strong>注意</strong>:一级的路由path 需要加 <code>/</code>   二级路由的path不需要加 <code>/</code></p>
+<pre><code class="language-js">const router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      component: Layout,
+      children:[
+        //children中的配置项 跟一级路由中的配置项一模一样 
+        {path:'xxxx',component:xxxx.vue},
+        {path:'xxxx',component:xxxx.vue},
+      ]
+    }
+  ]
+})
+</code></pre>
+<p>技巧：二级路由应该配置到哪个一级路由下呢？</p>
+<p><strong>这些二级路由对应的组件渲染到哪个一级路由下，children就配置到哪个路由下边</strong></p>
+<p>2.配置二级路由的出口 <router-view></router-view></p>
+<p><strong>注意：</strong> 配置了嵌套路由，一定配置对应的路由出口，否则不会渲染出对应的组件</p>
+<p>Layout.vue</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;h5-wrapper&quot;&gt;
+    &lt;div class=&quot;content&quot;&gt;
+      &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;/div&gt;
+  ....
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="2代码">2.代码</h4>
+<pre><code class="language-vue">const router = new VueRouter({
+  routes: [{
+      path: &quot;/&quot;,
+      redirect: &quot;/article&quot;,
+      component: Layout,
+      children: [{
+          path: '/article',
+          component: Article
+        },
+        {
+          path: '/collect',
+          component: Collect
+        }, {
+          path: '/like',
+          component: Like
+        }, {
+          path: '/user',
+          component: User
+        },
+      ]
+    },
+    {
+      path: '/detail',
+      component: ArticleDetail
+    }
+  ]
+})
+</code></pre>
+<h3 id="2-安装axios">2、 安装axios</h3>
+<pre><code class="language-shell">npm install --save axion vue--axion --legacy-peer-deps
+
+↓
+npm install axios --legacy-peer-deps
+</code></pre>
+<p>引入axios（全局引入）</p>
+<pre><code class="language-vue">import axios from &quot;axios&quot;;
+Vue.prototype.$axios = axios
+</code></pre>
+<h3 id="3-点击回退">3、 点击回退</h3>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;article-detail-page&quot;&gt;
+      									//单击事件
+    &lt;nav class=&quot;nav&quot;&gt;&lt;span class=&quot;back&quot; @click=&quot;$router.back()&quot;&gt;&amp;lt;&lt;/span&gt; 面经详情&lt;/nav&gt;
+     ....
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<h3 id="4-缓存组件">4、缓存组件</h3>
+<p>keep-alive 是 Vue 的内置组件，当它包裹动态组件时，<strong>会缓存不活动的组件实例，而不是销毁</strong>它们。</p>
+<p>keep-alive 是一个抽象组件：它自身不会渲染成一个 DOM 元素，也不会出现在父组件中。</p>
+<p><strong>优点：</strong></p>
+<p>在组件切换过程中把切换出去的组件保留在内存中，防止重复渲染DOM，</p>
+<p>减少加载时间及性能消耗，提高用户体验性。</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;h5-wrapper&quot;&gt;
+    &lt;keep-alive&gt;
+      &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;/keep-alive&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="keep-alive的三个属性">keep-alive的三个属性</h4>
+<p>① include  ： 组件名数组，只有匹配的组件<strong>会被缓存</strong></p>
+<p>② exclude ： 组件名数组，任何匹配的组件都<strong>不会被缓存</strong></p>
+<p>③ max       ： 最多可以<strong>缓存多少</strong>组件实例</p>
+<p>App.vue</p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;h5-wrapper&quot;&gt;
+      //只缓存LayoutPage这个页面
+    &lt;keep-alive :include=&quot;['LayoutPage']&quot;&gt;
+      &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;/keep-alive&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="额外的两个生命周期钩子">额外的两个生命周期钩子</h4>
+<p><strong>keep-alive的使用会触发两个生命周期函数</strong></p>
+<p><strong>activated</strong> 当组件被激活（使用）的时候触发 →  进入这个页面的时候触发</p>
+<p><strong>deactivated</strong> 当组件不被使用的时候触发      →  离开这个页面的时候触发</p>
+<p>组件<strong>缓存后</strong>就<strong>不会执行</strong>组件的<strong>created, mounted, destroyed</strong> 等钩子了</p>
+<p>所以其提供了<strong>actived 和deactived</strong>钩子，帮我们实现业务需求。</p>
+<h3 id="5-跨域问题">5、 跨域问题</h3>
+<p>vue.config.js</p>
+<pre><code class="language-JavaScript">devServer: {
+    host: '0.0.0.0', //可以忽略不写
+    port: 8082, //它是用来修改你打开后的端口号的
+    open: true, //值为 true的话，项目启动时自动打开到浏览器里边， false不会打开
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8081', //跨域请求的公共地址
+        ws: false, //也可以忽略不写，不写也不会影响跨域
+        changeOrigin: true, //是否开启跨域，值为 true 就是开启， false 不开启
+        pathRewrite: {
+          '^/api': '' //注册全局路径， 但是在你请求的时候前面需要加上 /api
+        }
+      }
+    }
+  }
+</code></pre>
+<p>使用</p>
+<pre><code class="language-vue"> axios({
+        url: '/login',
+        method: 'POST',
+        data: {
+          account: '18062814983',
+          code: '123456'
+        }
+      })
+        .then(result =&gt; {
+          console.log(result.data)
+        })
+        .catch(error =&gt; {
+          // 处理失败错误
+        })
+</code></pre>
+<h3 id="6-elem-ui">6、elem-ui</h3>
+<pre><code class="language-shell">npm i element-ui -S --legacy-peer-deps
+</code></pre>
+<p>man.js</p>
+<pre><code class="language-javascript">import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+ Vue.use(ElementUI)
+</code></pre>
+<h2 id="713-vuecli-自定义创建项目">7.13 VueCli 自定义创建项目</h2>
+<h3 id="1-项目搭建">1、 项目搭建</h3>
+<p>1.安装脚手架 (已安装)</p>
+<pre><code>npm i @vue/cli -g
+</code></pre>
+<p>2.创建项目</p>
+<pre><code>vue create hm-exp-mobile
+</code></pre>
+<ul>
+<li>选项</li>
+</ul>
+<pre><code class="language-js">Vue CLI v5.0.8
+? Please pick a preset:
+  Default ([Vue 3] babel, eslint)
+  Default ([Vue 2] babel, eslint)
+&gt; Manually select features     选自定义
+</code></pre>
+<ul>
+<li>手动选择功能</li>
+</ul>
+<pre><code class="language-shell"> Check the features needed for your project: (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection, and
+&lt;enter&gt; to proceed)
+&gt;(*) Babel	es6转es3
+ ( ) TypeScript
+ ( ) Progressive Web App (PWA) Support
+ (*) Router	路由
+ ( ) Vuex
+ (*) CSS Pre-processors		less/css
+ (*) Linter / Formatter		eslint 校验代码格式
+ ( ) Unit Testing
+ ( ) E2E Testing
+</code></pre>
+<ul>
+<li>选择vue版本</li>
+</ul>
+<pre><code class="language-shell"> Choose a version of Vue.js that you want to start the project with
+  3.x
+&gt; 2.x	2.0版
+</code></pre>
+<ul>
+<li>是否使用history模式，选择n代表使用hash模式</li>
+</ul>
+<pre><code class="language-shell"> Use history mode for router? (Requires proper server setup for index fallback in production) (Y/n)
+ 	n
+</code></pre>
+<ul>
+<li>选择css预处理</li>
+</ul>
+<pre><code class="language-shell"> Pick a CSS pre-processor (PostCSS, Autoprefixer and CSS Modules are supported by default):
+  Sass/SCSS (with dart-sass)
+&gt; Less
+  Stylus
+</code></pre>
+<ul>
+<li>选择eslint的风格 （eslint 代码规范的检验工具，检验代码是否符合规范）</li>
+</ul>
+<pre><code class="language-shell"> Pick a linter / formatter config: (Use arrow keys)
+  ESLint with error prevention only
+  ESLint + Airbnb config
+&gt; ESLint + Standard config	标准风格
+  ESLint + Prettier
+</code></pre>
+<ul>
+<li>选择校验的时机 （直接回车）</li>
+</ul>
+<pre><code class="language-shell">Pick additional lint features: (Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection, and &lt;enter&gt; to
+proceed)
+&gt;(*) Lint on save
+ ( ) Lint and fix on commit
+</code></pre>
+<ul>
+<li>选择配置文件的生成方式 （直接回车）</li>
+</ul>
+<pre><code class="language-shell"> Where do you prefer placing config for Babel, ESLint, etc.? (Use arrow keys)
+&gt; In dedicated config files
+  In package.json
+</code></pre>
+<ul>
+<li>是否保存预设，下次直接使用？  =&gt;   不保存，输入 N</li>
+</ul>
+<pre><code class="language-shell">Save this as a preset for future projects?
+</code></pre>
+<ul>
+<li>
+<p>禁止检测语法 vue.config.js</p>
+</li>
+<li>
+<pre><code class="language-javascript">const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
+  transpileDependencies: true,
+  lintOnSave: false,	//禁止语法检测
+  devServer: {
+    host: '0.0.0.0', //可以忽略不写
+    port: 8082, //它是用来修改你打开后的端口号的
+    open: false, //值为 true的话，项目启动时自动打开到浏览器里边， false不会打开
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8082', //跨域请求的公共地址
+        ws: false, //也可以忽略不写，不写也不会影响跨域
+        changeOrigin: true, //是否开启跨域，值为 true 就是开启， false 不开启
+        pathRewrite: {
+          '^/api': '' //注册全局路径， 但是在你请求的时候前面需要加上 /api
+        }
+      }
+    }
+  }
+})
+
+</code></pre>
+</li>
+<li></li>
+</ul>
+<h3 id="2-eslint代码规范及手动修复">2、 ESlint代码规范及手动修复</h3>
+<h4 id="1-规范说明">1. 规范说明</h4>
+<p>https://standardjs.com/rules-zhcn.html</p>
+<ul>
+<li><em>字符串使用单引号</em> – 需要转义的地方除外</li>
+<li><em>无分号</em> – <a href="http://blog.izs.me/post/2353458699/an-open-letter-to-javascript-leaders-regarding">这</a><a href="http://inimino.org/~inimino/blog/javascript_semicolons">没什么不好。</a><a href="https://www.youtube.com/watch?v=gsfbh17Ax9I">不骗你！</a></li>
+<li><em>关键字后加空格</em> <code>if (condition) { ... }</code></li>
+<li><em>函数名后加空格</em> <code>function name (arg) { ... }</code></li>
+<li>坚持使用全等 <code>===</code> 摒弃 <code>==</code> 一但在需要检查 <code>null || undefined</code> 时可以使用 <code>obj == null</code></li>
+<li>......</li>
+</ul>
+<h4 id="2-手动修正">2. 手动修正</h4>
+<p>根据错误提示来一项一项手动修正。</p>
+<p>https://zh-hans.eslint.org/docs/latest/rules/，使用页面搜索（Ctrl + F）这个代码，查找对该规则的一个释义。</p>
+<h4 id="3插件修正">3.插件修正</h4>
+<ul>
+<li>
+<p>安装ESlint插件</p>
+</li>
+<li>
+<p>配置</p>
+<ul>
+<li>
+<pre><code class="language-json">// 当保存的时候，eslint自动帮我们修复错误
+&quot;editor.codeActionsOnSave&quot;: {
+    &quot;source.fixAll&quot;: true
+},
+// 保存代码，不自动格式化
+&quot;editor.formatOnSave&quot;: false
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="714-vuex">7.14 VueX</h2>
+<p>npm i vuex@3 --legacy-peer-deps</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>https://iticat.github.io/hello-gridea/</id>
+        <link href="https://iticat.github.io/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+<!-- more -->
+<p><a href="https://github.com/getgridea/gridea">Github</a><br>
+<a href="https://gridea.dev/">Gridea 主页</a><br>
+<a href="https://fehey.com/">示例网站</a></p>
+<h2 id="特性">特性👇</h2>
+<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
+<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
+<p>🏷️  你可以对文章进行标签分组</p>
+<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
+<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
+<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
+<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
+<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
+<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
+<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
+<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
+<p>未来，它一定会成为你离不开的伙伴</p>
+<p>尽情发挥你的才华吧！</p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>
